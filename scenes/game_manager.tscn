@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvdl2r0u7orjt"]
+
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_dm2ed"]
+[ext_resource type="FontFile" uid="uid://dd7xe4206m4cr" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_3aok2"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_dm2ed")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 1581.0
+offset_top = -80.0
+offset_right = 1791.0
+offset_bottom = -57.0
+scale = Vector2(0.76, 0.76)
+theme_override_colors/font_color = Color(0.0980392, 0.313726, 0.752941, 1)
+theme_override_fonts/font = ExtResource("2_3aok2")
+text = "You got X coins"
+horizontal_alignment = 1
+vertical_alignment = 1
