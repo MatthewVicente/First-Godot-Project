@@ -7,3 +7,11 @@ var score = 0
 func add_point():
 	score += 1
 	score_label.text = 'You got ' + str(score) + ' coins.'
+	
+func become_host():	
+	%MultiplayerHUD.hide()
+	MultiplayerManager.become_host()
+	
+func join_as_player_2():
+	%MultiplayerHUD.hide()
+	MultiplayerManager.join_as_player_2()

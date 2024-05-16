@@ -702,8 +702,53 @@ position = Vector2(321, 32)
 [node name="Enemy2" parent="Enemies" instance=ExtResource("8_uihwe")]
 position = Vector2(930, 63)
 
-[node name="Enemy1" parent="." instance=ExtResource("8_uihwe")]
+[node name="Enemy3" parent="Enemies" instance=ExtResource("8_uihwe")]
 position = Vector2(620, 63)
 
-[node name="Enemy2" parent="." instance=ExtResource("8_uihwe")]
+[node name="Enemy4" parent="Enemies" instance=ExtResource("8_uihwe")]
 position = Vector2(1600, -1)
+
+[node name="MultiplayerHUD" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 7.0
+offset_top = -37.0
+offset_right = 117.0
+offset_bottom = -2.0
+
+[node name="Panel" type="Panel" parent="MultiplayerHUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MultiplayerHUD/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HostGame" type="Button" parent="MultiplayerHUD/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_3n2ds")
+theme_override_font_sizes/font_size = 8
+text = "Host New Game"
+
+[node name="JoinAsPlayer2" type="Button" parent="MultiplayerHUD/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_v2v8l")
+theme_override_font_sizes/font_size = 8
+text = "Join as player 2"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/multiplayer_player.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 2
+
+[node name="Players" type="Node2D" parent="."]
+position = Vector2(131, 0)
+
+[connection signal="pressed" from="MultiplayerHUD/Panel/VBoxContainer/HostGame" to="GameManager" method="become_host"]
+[connection signal="pressed" from="MultiplayerHUD/Panel/VBoxContainer/JoinAsPlayer2" to="GameManager" method="join_as_player_2"]

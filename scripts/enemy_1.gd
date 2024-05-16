@@ -30,10 +30,8 @@ func _process(delta):
 		animated_sprite.flip_h = not animated_sprite.flip_h
 		can_check = false
 		timer.start()
-		print('Dentro do if, can check: ' + str(can_check))
 		
 	position.x += direction * SPEED * delta
 	
 func _on_timer_timeout():
 	can_check = true
-	print('Dentro da function, can check: ' + str(can_check))
