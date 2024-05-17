@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dth7jxuesbkma"]
+[gd_scene load_steps=27 format=3 uid="uid://dth7jxuesbkma"]
 
 [ext_resource type="PackedScene" uid="uid://cvdl2r0u7orjt" path="res://scenes/game_manager.tscn" id="1_2a8pn"]
 [ext_resource type="PackedScene" uid="uid://coujur05ag1rr" path="res://scenes/player.tscn" id="1_qfub7"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://df3n1pbvgigb" path="res://scenes/enemy_1.tscn" id="8_uihwe"]
 [ext_resource type="FontFile" uid="uid://dd7xe4206m4cr" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="9_3n2ds"]
 [ext_resource type="FontFile" uid="uid://bxytqa2qjkrcf" path="res://assets/fonts/PixelOperator8.ttf" id="11_v2v8l"]
+[ext_resource type="Script" path="res://scripts/finish_line.gd" id="13_cwvde"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8rv13"]
 texture = ExtResource("2_6rotm")
@@ -534,6 +535,8 @@ _data = {
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_nruj2"]
 distance = -38.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ullqf"]
+
 [node name="Game" type="Node2D"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_2a8pn")]
@@ -756,5 +759,15 @@ spawn_limit = 2
 [node name="Players" type="Node2D" parent="."]
 position = Vector2(131, 0)
 
+[node name="FinishLine" type="Area2D" parent="."]
+position = Vector2(1764, -83)
+scale = Vector2(2.30008, 8.12753)
+collision_mask = 2
+script = ExtResource("13_cwvde")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLine"]
+shape = SubResource("RectangleShape2D_ullqf")
+
 [connection signal="pressed" from="MultiplayerHUD/Panel/VBoxContainer/HostGame" to="GameManager" method="become_host"]
 [connection signal="pressed" from="MultiplayerHUD/Panel/VBoxContainer/JoinAsPlayer2" to="GameManager" method="join_as_player_2"]
+[connection signal="body_entered" from="FinishLine" to="FinishLine" method="_on_body_entered"]

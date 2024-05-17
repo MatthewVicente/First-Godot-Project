@@ -9,6 +9,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = 1
 var do_jump = false
 var _is_on_floor = false
+var alive = true
+var score = 0
 
 @onready var animated_sprite = $AnimatedSprite2D
 
@@ -62,8 +64,28 @@ func _apply_movement_from_input(delta):
 
 func _physics_process(delta):
 	if multiplayer.is_server():
+		if not alive and _is_on_floor:
+			_set_alive()
+
 		_is_on_floor = is_on_floor()
 		_apply_movement_from_input(delta)
 	
 	if not multiplayer.is_server() or MultiplayerManager.host_mode_enabled:
 		_apply_animations()
+		
+func mark_dead():
+	alive = false
+	$CollisionShape2D.set_deferred("disabled", true)
+	$RespawnTimer.start()
+	
+func _respawn():
+	position = MultiplayerManager.respawn_point
+	$CollisionShape2D.set_deferred("disabled", false)
+	
+func _set_alive():
+	alive = true
+	Engine.time_scale = 1
+
+func add_score():
+	score += 1
+	#score_label.text = 'You got ' + str(score) + ' coins.'
