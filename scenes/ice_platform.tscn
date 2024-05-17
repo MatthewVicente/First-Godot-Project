@@ -1,11 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxdg2ka1hm3ey"]
+[gd_scene load_steps=4 format=3 uid="uid://dxdg2ka1hm3ey"]
 
 [ext_resource type="Texture2D" uid="uid://xemukaxrg6ww" path="res://assets/sprites/platforms.png" id="1_n82cf"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4r6h7"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1eqtj"]
 size = Vector2(32, 8)
 
 [node name="IcePlatform" type="AnimatableBody2D"]
+
+[node name="PlatformSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_4r6h7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_n82cf")

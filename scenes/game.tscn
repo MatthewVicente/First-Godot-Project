@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dth7jxuesbkma"]
+[gd_scene load_steps=25 format=3 uid="uid://dth7jxuesbkma"]
 
 [ext_resource type="PackedScene" uid="uid://cvdl2r0u7orjt" path="res://scenes/game_manager.tscn" id="1_2a8pn"]
 [ext_resource type="PackedScene" uid="uid://coujur05ag1rr" path="res://scenes/player.tscn" id="1_qfub7"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dydir1ub61rnf" path="res://scenes/coin.tscn" id="4_tcxtu"]
 [ext_resource type="PackedScene" uid="uid://cj55v4kwgib04" path="res://scenes/killzone.tscn" id="5_8r6w2"]
 [ext_resource type="PackedScene" uid="uid://bmxcjrrly8mfo" path="res://scenes/yellow_platform.tscn" id="5_juwnw"]
+[ext_resource type="Script" path="res://scripts/platform.gd" id="6_v0p3r"]
 [ext_resource type="PackedScene" uid="uid://df3n1pbvgigb" path="res://scenes/enemy_1.tscn" id="8_uihwe"]
 [ext_resource type="FontFile" uid="uid://dd7xe4206m4cr" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="9_3n2ds"]
 [ext_resource type="FontFile" uid="uid://bxytqa2qjkrcf" path="res://assets/fonts/PixelOperator8.ttf" id="11_v2v8l"]
@@ -559,8 +560,9 @@ layer_1/tile_data = PackedInt32Array(196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 1
 
 [node name="Platforms" type="Node" parent="."]
 
-[node name="Platform2" parent="Platforms" instance=ExtResource("3_e5l4v")]
+[node name="Platform2" parent="Platforms" node_paths=PackedStringArray("animation_player_optional") instance=ExtResource("3_e5l4v")]
 position = Vector2(767, 69)
+animation_player_optional = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform2"]
 libraries = {
@@ -568,8 +570,10 @@ libraries = {
 }
 autoplay = "move"
 
-[node name="IcePlatform" parent="Platforms" instance=ExtResource("4_qgpjx")]
+[node name="IcePlatform" parent="Platforms" node_paths=PackedStringArray("animation_player_optional") instance=ExtResource("4_qgpjx")]
 position = Vector2(473, 121)
+script = ExtResource("6_v0p3r")
+animation_player_optional = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/IcePlatform"]
 libraries = {
@@ -577,8 +581,10 @@ libraries = {
 }
 autoplay = "move"
 
-[node name="Yellow Platform" parent="Platforms" instance=ExtResource("5_juwnw")]
+[node name="Yellow Platform" parent="Platforms" node_paths=PackedStringArray("animation_player_optional") instance=ExtResource("5_juwnw")]
 position = Vector2(760, 118)
+script = ExtResource("6_v0p3r")
+animation_player_optional = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Yellow Platform"]
 libraries = {
