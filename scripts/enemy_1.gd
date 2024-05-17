@@ -17,13 +17,13 @@ func _ready():
 	timer.timeout.connect(_on_timer_timeout)
 
 func _apply_animations():
-	if _is_colliding_right:
+	if ray_cast_right.is_colliding():
 		direction = -1
 		animated_sprite.flip_h = true
-	if _is_colliding_left:
+	if ray_cast_left.is_colliding():
 		direction = 1
 		animated_sprite.flip_h = false
-	if not _is_colliding_down and can_check:
+	if not ray_cast_down.is_colliding() and can_check:
 		direction *= -1
 		animated_sprite.flip_h = not animated_sprite.flip_h
 		can_check = false
@@ -31,14 +31,11 @@ func _apply_animations():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):	
-	if multiplayer.is_server():
-		_is_colliding_right = ray_cast_right.is_colliding()
-		_is_colliding_left = ray_cast_left.is_colliding()
-		_is_colliding_down = ray_cast_down.is_colliding()
-		position.x += direction * SPEED * delta
+	#if multiplayer.is_server():
+	position.x += direction * SPEED * delta
+	_apply_animations()
 	
-	if not multiplayer.is_server() or MultiplayerManager.host_mode_enabled:
-		_apply_animations()
+	#if not multiplayer.is_server() or MultiplayerManager.host_mode_enabled:
 
 func _on_timer_timeout():
 	can_check = true

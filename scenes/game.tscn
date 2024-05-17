@@ -703,7 +703,7 @@ text = "Well done!"
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Enemy1" parent="Enemies" instance=ExtResource("8_uihwe")]
-position = Vector2(268, 0)
+position = Vector2(316, 31)
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource("8_uihwe")]
 position = Vector2(930, 63)
