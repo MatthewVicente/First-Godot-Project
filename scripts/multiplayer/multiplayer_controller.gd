@@ -23,7 +23,7 @@ func _ready():
 	else:
 		$Camera2D.enabled = false
 
-func _apply_animations(delta):
+func _apply_animations():
 	# Flip the Sprite
 	if direction > 0:
 		animated_sprite.flip_h = false
@@ -66,4 +66,4 @@ func _physics_process(delta):
 		_apply_movement_from_input(delta)
 	
 	if not multiplayer.is_server() or MultiplayerManager.host_mode_enabled:
-		_apply_animations(delta)
+		_apply_animations()

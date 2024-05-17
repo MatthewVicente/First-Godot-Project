@@ -1,10 +1,11 @@
 extends Node2D
 
 const SPEED = 40
-
 var direction = 1
-
 var can_check = true
+var _is_colliding_right = false
+var _is_colliding_left = false
+var _is_colliding_down = false
 
 @onready var ray_cast_right = $RayCastRight
 @onready var ray_cast_left = $RayCastLeft
@@ -15,23 +16,29 @@ var can_check = true
 func _ready():
 	timer.timeout.connect(_on_timer_timeout)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):	
-	if ray_cast_right.is_colliding():
+func _apply_animations():
+	if _is_colliding_right:
 		direction = -1
 		animated_sprite.flip_h = true
-	
-	if ray_cast_left.is_colliding():
+	if _is_colliding_left:
 		direction = 1
 		animated_sprite.flip_h = false
-	
-	if not ray_cast_down.is_colliding() and can_check:
+	if not _is_colliding_down and can_check:
 		direction *= -1
 		animated_sprite.flip_h = not animated_sprite.flip_h
 		can_check = false
 		timer.start()
-		
-	position.x += direction * SPEED * delta
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):	
+	if multiplayer.is_server():
+		_is_colliding_right = ray_cast_right.is_colliding()
+		_is_colliding_left = ray_cast_left.is_colliding()
+		_is_colliding_down = ray_cast_down.is_colliding()
+		position.x += direction * SPEED * delta
 	
+	if not multiplayer.is_server() or MultiplayerManager.host_mode_enabled:
+		_apply_animations()
+
 func _on_timer_timeout():
 	can_check = true
