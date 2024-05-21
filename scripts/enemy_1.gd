@@ -3,9 +3,6 @@ extends Node2D
 const SPEED = 40
 var direction = 1
 var can_check = true
-var _is_colliding_right = false
-var _is_colliding_left = false
-var _is_colliding_down = false
 
 @onready var ray_cast_right = $RayCastRight
 @onready var ray_cast_left = $RayCastLeft

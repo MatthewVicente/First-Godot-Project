@@ -1,7 +1,7 @@
 extends Node
 
 const SERVER_PORT = 8080
-const SERVER_IP = '127.0.0.1'
+const SERVER_IP = 'ec2-3-138-134-8.us-east-2.compute.amazonaws.com'
 
 var multiplayer_scene = preload('res://scenes/multiplayer_player.tscn')
 var _players_spawn_node
@@ -27,7 +27,8 @@ func become_host():
 	
 	_remove_single_player()
 	
-	_add_player_to_game(1)
+	if not OS.has_feature("dedicated_server"):
+		_add_player_to_game(1)
 	
 func join_as_player_2():
 	multiplayer_mode_enabled = true
@@ -46,6 +47,8 @@ func _add_player_to_game(id: int):
 	player_to_add.name = str(id)
 	
 	_players_spawn_node.add_child(player_to_add, true)
+	
+	print("Player %s joinned", % id)
 
 func _del_player(id: int):	
 	if not _players_spawn_node.has_node(str(id)):
